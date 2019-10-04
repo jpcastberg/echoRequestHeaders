@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>testSite</title>
+</head>
+<body>
+    <div style="background-color: blanchedalmond; display: flex;">Content Type header test</div>
+    <div>REQUEST HEADERS:</div>
+    <ul id="header-list"></ul>
+    <script type="text/javascript">
+        var req = new XMLHttpRequest()
+        req.open('POST', 'http://localhost:3000/')
+        req.setRequestHeader('Accept', 'text/javascript')
+        req.onreadystatechange = function () {
+            if(req.readyState === 4 && req.status === 200) {
+                var headers = JSON.parse(req.responseText)
+                var headerList = document.getElementById('header-list')
+                for (header in headers) {
+                    var headerLi = document.createElement('li')
+                    headerLi.innerHTML = `${header}: ${headers[header]}`
+                    headerList.appendChild(headerLi)
+                }
+            }
+        };
+        req.send();
+    </script>
+</body>
+</html>
